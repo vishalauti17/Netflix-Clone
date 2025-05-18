@@ -5,7 +5,7 @@
     font-family: Arial, sans-serif
 }
 
-/* Frequently Asked Questions */
+/* Frequently Asked Questions css implemented by ishawar Bhavane */ 
     .FAQ_list_container {
   border-top: 8px solid #222;
   padding: 2rem 0;
@@ -73,7 +73,7 @@
   }
 }
 
-  /* footer */
+/* footer css implemented by vishal */
 .footer_p {
     margin-left: 9.5%;
     font-size: 16px;
@@ -91,7 +91,6 @@
     color: #ffffff8c;
 }
 
-
 footer select {
     margin-left: 10%;
     margin-top: 18px;
@@ -100,4 +99,40 @@ footer select {
 .bottom_p{
      margin-left: 9.5%;
      margin-top:40px ;
+}
+
+@media only screen and ( max-width:600px)
+{
+  *{
+    background-color: black;
+    max-width: 100%;
+    color: white;
+    font-family: Arial, sans-serif
+  }
+   .footer_p {
+    margin: 24px;
+    font-size: 16px;
+ }
+ .all_divs{
+  margin-bottom: -250px;
+ }
+.second{
+  position: relative;
+  left: 150px;
+  bottom: 136px;
+}
+.first{
+  position: relative;
+  right:105px;
+}
+.third{
+ position: relative;
+ bottom: 149px;
+ right: 93px;
+}
+.fourth{
+  position: relative;
+  bottom: 284px;
+  left: 134px;
+}
 }
