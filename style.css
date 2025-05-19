@@ -196,7 +196,6 @@ body {
 }
 
 /* footer css implemented by vishal */
-/* Base Footer Styles */
 .netflix-footer {
   background-color: rgba(0, 0, 0, 0.75);
   color: #757575;
@@ -206,8 +205,9 @@ body {
 
 .footer-container {
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 0px 0px 0px 86px;
   padding: 0 4%;
+
 }
 
 .footer-contact {
@@ -228,7 +228,6 @@ body {
   text-decoration: underline;
 }
 
-/* Links Grid Layout */
 .footer-links {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -256,7 +255,6 @@ body {
   text-decoration: underline;
 }
 
-/* Language Selector */
 .language-selector {
   margin-bottom: 30px;
   position: relative;
@@ -294,13 +292,11 @@ body {
   pointer-events: none;
 }
 
-/* Footer Brand */
 .footer-brand {
   font-size: 0.8125em;
   color: #757575;
 }
 
-/* Responsive Breakpoints */
 @media (max-width: 800px) {
   .footer-links {
     grid-template-columns: repeat(3, 1fr);
