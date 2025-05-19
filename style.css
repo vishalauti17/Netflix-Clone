@@ -5,131 +5,141 @@
     font-family: Arial, sans-serif
 }
 /* header css implemented by jyoti kolase */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #000000cc, #000000cc), 
-    url('https://assets.nflxext.com/ffe/siteui/vlv3/6b7744e4-d4a0-4e43-beb5-46c765c5f2aa/ca1e716f-7f2e-4d47-b8b2-5e2d1f75ec3f/IN-en-20230626-popsignuptwoweeks-perspective_alpha_website_small.jpg');
-    background-size: 1600px;
-    color: white;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: white;
+        }
 
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background-color: transparent;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .logo {
+            height: 40px;
+            background: transparent;
+        }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    background-color: transparent;
-    align-items: center;
-}
-.logo {
-    height: 40px;
-}
+        .right-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
 
-.right-nav {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
+        .language {
+            background: seashell;
+            color: rgb(173, 34, 34);
+            border: 1px solid white;
+            padding: 0.4rem;
+            border-radius: 4px;
+        }
 
-.language {
-    background: seashell;
-    color: rgb(173, 34, 34);
-    border: 1px solid white;
-    padding: 0.4rem;
-    border-radius: 4px;
-}
+        .sign-in {
+            background-color: red;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-.sign-in {
-    background-color: red;
-    border: none;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        .hero {
+            position: relative;
+            height: 80vh;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -72px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('background.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.8;
+            z-index: 1;
+        }
 
-.hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    text-align: center;
-    padding: 2rem;
-}
-.hero {
-  background-image: url(background-image.jpg); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white;  
-  text-align: center;
-  padding: 50px 0;
-}
-.hero-content {
-    max-width: 600px;
-}
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+            background-color: transparent;
+        }
 
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    display: flex;
-    text-align: center;
-    
-}
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background-color: transparent;
+        }
 
-.sub-text {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    text-decoration-color: #fff;
-}
+        .sub-text, .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            background-color: transparent;
+        }
 
-.email-form {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
+        .email-form {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background-color: transparent;
+        }
 
-.email-form input {
-    padding: 1rem;
-    font-size: 1rem;
-    border-radius: 4px;
-    border: none;
+        .email-form input {
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: none;  
+            background-color: #fff; 
+        }
 
-}
+        .email-form button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        @media (min-width: 600px) {
+            .email-form {
+                flex-direction: row;
+            }
 
-.email-form button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 1rem;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-}
-@media (min-width: 600px) {
-    .email-form {
-        flex-direction: row;
-    }
+            .email-form input {
+                flex: 2;
+            }
 
-    .email-form input {
-        flex: 2;
-    }
-
-    .email-form button {
-        flex: 1;
-    }
-}
+            .email-form button {
+                flex: 1;
+            }
+        }
 
 /* Frequently Asked Questions css implemented by ishawar Bhavane */ 
-    .FAQ_list_container {
-  border-top: 8px solid #222;
+   .FAQ_list_container {
   padding: 2rem 0;
   margin-left: -260px;
 }
