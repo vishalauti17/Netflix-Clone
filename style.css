@@ -138,6 +138,82 @@
             }
         }
 
+        html {
+    scroll-behavior: smooth;
+      }
+        /* trending now implemented by vaishnvi zirape */
+        
+        .container {
+            padding: 2em 3em;
+            color: white;
+            position: relative;
+        }
+
+        /* Section title */
+        .container h2 {
+            font-size: 1.4vw;
+            font-weight: 500;
+            margin-bottom: 0.8em;
+            user-select: none;
+        }
+
+        /* Movie row - horizontal scroll */
+        .movie-row {
+            display: flex;
+            gap: 0.4em;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            padding-bottom: 1em;
+        }
+
+        /* Hide scrollbar for Chrome/Safari */
+        .movie-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Movie poster styling */
+        .movie-row img {
+            width: 100%;
+            height: auto;
+            min-width: 220px;
+            aspect-ratio: 16/9;
+            border-radius: 4px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Hover effect */
+        .movie-row img:hover {
+            transform: scale(1.1);
+            z-index: 2;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5em 1em;
+            }
+            
+            .container h2 {
+                font-size: 18px;
+            }
+            
+            .movie-row img {
+                min-width: 150px;
+            }
+        }
+
+        /* Placeholder styling for demo (since your images may not load) */
+        .movie-row img {
+            background: linear-gradient(45deg, #e50914, #221f1f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+        }
         /* more Reasons to join implemented by pranjali ubale */
       
         .container {
