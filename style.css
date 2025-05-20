@@ -63,18 +63,18 @@
             align-items: center;
         }
         
-        .hero::before {
+        .header_bg::before {
             content: "";
             position: absolute;
             top: -72px;
             left: 0;
             right: 0;
-            bottom: 0;
+            bottom: 100px;
             background-image: url('background.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.8;
+            opacity: 0.4;
             z-index: 1;
         }
 
@@ -138,6 +138,118 @@
             }
         }
 
+        /* more Reasons to join implemented by pranjali ubale */
+      
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            color: #f9f9f9;
+            margin-left: 103px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+                margin-left: 103px;
+        }
+        
+        .benefit-card {
+            background-color: #1a1a2e;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            min-height: 200px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
+        }
+        
+        .benefit-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #f9f9f9;
+            background-color: transparent;
+        }
+        
+        .benefit-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            opacity: 0.8;
+            max-width: 90%;
+            background-color: transparent;
+        }
+        
+        .icon {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+           background-color: transparent;
+        }
+        
+        .tv-icon {
+            color: #d780ff;
+        }
+        
+        .download-icon {
+            background-color: #d780ff;
+            border-radius: 50%;
+            color: #1a1a2e;
+        }
+        
+        .mobile-icon {
+            color: #ff4d6d;
+        }
+        
+        .kids-icon {
+            color: #ff8fa3;
+        }
+        
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Glow effect on hover */
+        .benefit-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--x) var(--y), rgba(220, 100, 255, 0.15), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+        
+        .benefit-card:hover::after {
+            opacity: 1;
+        }
 /* Frequently Asked Questions css implemented by ishawar Bhavane */ 
  .FAQ_list_container {
         padding: 2rem 0;
@@ -164,7 +276,7 @@
       .FAQ__accordian {
         width: 100%;
         max-width: 815px;
-        margin: 0 auto;
+        
       }
       .FAQ__title {
         width: 100%;
@@ -312,7 +424,7 @@
 
       @media (min-width: 1024px) {
         .FAQ__list {
-          padding: 1rem 25rem;
+          padding: 36px 2px 0px 388px;
         }
         
         .FAQ_getstarted_email {
