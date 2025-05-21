@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Popular Movies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #141414;
+            color: white;
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-left: 50px;
+        }
+        
+        .movies-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 0 50px;
+            scrollbar-width: none; /* For Firefox */
+        }
+        
+        .movies-container::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari and Opera */
+        }
+        
+        .movie-card {
+            min-width: 220px;
+            height: 125px;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .movie-card:hover {
+            transform: scale(1.1);
+            z-index: 1;
+        }
+        
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .movie-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 10px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .movie-card:hover .movie-title {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="section-title">Popular on Netflix</h2>
+    
+    <div class="movies-container">
+        <div class="movie-card">
+            <img src="https://via.placeholder.com/220x125/333333/FFFFFF?text=Heart+of+the+Hunter" alt="Heart of the Hunter">
+            <div class="movie-title">Heart of the Hunter</div>
+        </div>
+        <div class="movie-card">
+            <img src="https://via.placeholder.com/220x125/333333/FFFFFF?text=Oppenheimer" alt="Oppenheimer">
+            <div class="movie-title">Oppenheimer</div>
+        </div>
+        <div class="movie-card">
+            <img src="https://via.placeholder.com/220x125/333333/FFFFFF?text=Abigail" alt="Abigail">
+            <div class="movie-title">Abigail</div>
+        </div>
+        <div class="movie-card">
+            <img src="https://via.placeholder.com/220x125/333333/FFFFFF?text=Lardie+Bach" alt="Lardie Bach">
+            <div class="movie-title">Lardie Bach</div>
+        </div>
+        <div class="movie-card">
+            <img src="https://via.placeholder.com/220x125/333333/FFFFFF?text=Fabbricante+di+lacrime" alt="Fabbricante di lacrime">
+            <div class="movie-title">Fabbricante di lacrime</div>
+        </div>
+        <div class="movie-card">
+            <img src="https://via.placeholder.com/220x125/333333/FFFFFF?text=Dune" alt="Dune">
+            <div class="movie-title">Dune</div>
+        </div>
+    </div>
+</body>
+</html>
