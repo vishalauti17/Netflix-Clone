@@ -1,0 +1,230 @@
+:root {
+      --netflix-bg: #141414;
+      --netflix-red: #e50914;
+      --netflix-text: #e5e5e5;
+      --netflix-white: #ffffff;
+      --netflix-dark-gray: #181818;
+      --netflix-gray: #333333;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    
+    body {
+      background-color: var(--netflix-bg);
+      color: var(--netflix-text);
+      overflow-x: hidden;
+    }
+
+    .logo {
+            color: #e50914;
+            font-size: 32px;
+            font-weight: bold;
+        }
+    
+    .navbar {
+      display: flex;
+      align-items: center;
+      padding: 0 60px;
+      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 68px;
+      z-index: 1000;
+      transition: background-color 0.3s;
+    }
+    
+    .logo {
+      height: 32px;
+      margin-right: 40px;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-right: 20px;
+    }
+    
+    .nav-links a {
+      color: var(--netflix-text);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--netflix-white);
+    }
+    
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-right i {
+      color: var(--netflix-white);
+      font-size: 22px;
+      margin-left: 22px;
+      cursor: pointer;
+    }
+    
+    .profile-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      margin-left: 22px;
+      background-color: #ccc;
+      cursor: pointer;
+    }
+    
+    .hero {
+      padding: 90px 60px 30px;
+    }
+    
+    .page-title {
+      font-size: 46px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    
+    .row-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0 15px;
+    }
+    
+    .row {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 30px;
+    }
+    
+    .row::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .movie-card {
+      min-width: 280px;
+      height: 160px;
+      margin-right: 8px;
+      border-radius: 4px;
+      background-color: var(--netflix-gray);
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .movie-card:hover {
+      transform: scale(1.05);
+    }
+    
+    .movie-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .movie-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .movie-card:hover .movie-info {
+      opacity: 1;
+    }
+    
+    .movie-title {
+      font-size: 14px;
+      margin-right: auto;
+    }
+    
+    .movie-controls {
+      display: flex;
+    }
+    
+    .movie-controls i {
+      background-color: var(--netflix-white);
+      color: var(--netflix-bg);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+    
+    footer {
+      padding: 30px 60px;
+      color: #757575;
+      font-size: 13px;
+    }
+    
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .footer-links a {
+      color: #757575;
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .service-code {
+      border: 1px solid #757575;
+      padding: 8px;
+      display: inline-block;
+      margin: 20px 0;
+      cursor: pointer;
+    }
+    
+    @media (max-width: 960px) {
+      .navbar {
+        padding: 0 20px;
+      }
+      
+      .hero {
+        padding: 90px 20px 30px;
+      }
+      
+      .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .page-title {
+        font-size: 32px;
+      }
+      
+      .movie-card {
+        min-width: 200px;
+        height: 120px;
+      }
+    }

@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Shows - Netflix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #141414;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 60px;
+            background-color: #141414;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #e50914;
+            font-size: 32px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-tagline {
+            color: white;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-join {
+            background-color: #e50914;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-join:hover {
+            background-color: #f40612;
+        }
+
+        .btn-signin {
+            background-color: transparent;
+            color: white;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .btn-signin:hover {
+            border-color: #666;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 60px;
+        }
+
+        .hero-section {
+            margin-bottom: 60px;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.4;
+            max-width: 650px;
+            color: #e5e5e5;
+        }
+
+        /* Show Sections */
+        .show-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .shows-container {
+            position: relative;
+        }
+
+        .shows-row {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #666 #141414;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .shows-row::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .shows-row::-webkit-scrollbar-track {
+            background: #141414;
+            border-radius: 4px;
+        }
+
+        .shows-row::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 4px;
+        }
+
+        .shows-row::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
+        .show-item {
+            position: relative;
+            min-width: 250px;
+            width: 250px;
+            height: 140px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        .show-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .show-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 15px;
+        }
+
+        .show-info {
+            color: white;
+        }
+
+        .show-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .show-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background-color: #e50914;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .top-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: #e50914;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* Navigation Arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 100;
+            transition: background-color 0.3s;
+        }
+
+        .nav-arrow:hover {
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .nav-arrow.left {
+            left: -25px;
+        }
+
+        .nav-arrow.right {
+            right: -25px;
+        }
+
+        /* Footer Section */
+        .footer {
+            background-color: #000;
+            padding: 80px 60px 40px;
+            margin-top: 80px;
+        }
+
+        .footer-cta {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .footer-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .footer-description {
+            font-size: 18px;
+            color: #b3b3b3;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .footer-btn {
+            background-color: #e50914;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .footer-btn:hover {
+            background-color: #f40612;
+        }
+
+        .footer-info {
+            margin-bottom: 40px;
+        }
+
+        .footer-text {
+            color: #737373;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact {
+            color: #737373;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-link {
+            color: #737373;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #b3b3b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .header {
+                padding: 15px 40px;
+            }
+
+            .main-content {
+                padding: 40px;
+            }
+
+            .footer {
+                padding: 60px 40px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .nav-center, .nav-tagline {
+                display: none;
+            }
+
+            .nav-right {
+                gap: 10px;
+            }
+
+            .btn-join, .btn-signin {
+                padding: 6px 15px;
+                font-size: 12px;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+                margin-top: 70px;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .show-item {
+                min-width: 180px;
+                height: 100px;
+            }
+
+            .show-title {
+                font-size: 14px;
+            }
+
+            .nav-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .footer {
+                padding: 40px 20px 20px;
+            }
+
+            .footer-title {
+                font-size: 32px;
+            }
+
+            .footer-description {
+                font-size: 16px;
+            }
+
+            .footer-btn {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 15px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .btn-join, .btn-signin {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+
+            .main-content {
+                padding: 20px 15px;
+                margin-top: 60px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .show-item {
+                min-width: 150px;
+                height: 85px;
+            }
+
+            .show-title {
+                font-size: 12px;
+            }
+
+            .show-overlay {
+                padding: 10px;
+            }
+
+            .nav-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+
+            .footer {
+                padding: 30px 15px 15px;
+            }
+
+            .footer-title {
+                font-size: 28px;
+            }
+
+            .footer-description {
+                font-size: 14px;
+            }
+
+            .footer-btn {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .footer-column {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">NETFLIX</a>
+            <div class="nav-center">
+                <span class="nav-tagline">UNLIMITED TV SHOWS & MOVIES</span>
+            </div>
+            <div class="nav-right">
+                <button class="btn-join">Join now</button>
+                <button class="btn-signin">Sign In</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">TV Shows</h1>
+            <p class="hero-description">
+                These days, the small screen has some very big things to offer. From sitcoms to dramas to travel and talk shows, these are all the best programs on TV.
+            </p>
+        </section>
+
+        <!-- Crowd Pleasers Section -->
+        <section class="show-section">
+            <h2 class="section-title">Crowd Pleasers</h2>
+            <div class="shows-container">
+                <button class="nav-arrow left" onclick="scrollLeft('crowd-pleasers')">&lt;</button>
+                <div class="shows-row" id="crowd-pleasers">
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">When Life Gives You Tangerines</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1509347528160-9329d33b2588?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Money Heist</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="top-badge">TOP 10</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Squid Game</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Stranger Things</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">IC 814: The Kandahar Hijack</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1489599006989-8b4f4ce7b1b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">The Crown</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Ozark</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow right" onclick="scrollRight('crowd-pleasers')">&gt;</button>
+            </div>
+        </section>
+
+        <!-- Netflix Originals Section -->
+        <section class="show-section">
+            <h2 class="section-title">Netflix Originals</h2>
+            <div class="shows-container">
+                <button class="nav-arrow left" onclick="scrollLeft('netflix-originals')">&lt;</button>
+                <div class="shows-row" id="netflix-originals">
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">House of Cards</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1534809027769-b00d750a6bac?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Orange Is the New Black</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Dark</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1489599006989-8b4f4ce7b1b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">The Umbrella Academy</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Mindhunter</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Russian Doll</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow right" onclick="scrollRight('netflix-originals')">&gt;</button>
+            </div>
+        </section>
+
+        <!-- Trending Now Section -->
+        <section class="show-section">
+            <h2 class="section-title">Trending Now</h2>
+            <div class="shows-container">
+                <button class="nav-arrow left" onclick="scrollLeft('trending-now')">&lt;</button>
+                <div class="shows-row" id="trending-now">
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Bridgerton</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Emily in Paris</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">The Good Place</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1534809027769-b00d750a6bac?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Brooklyn Nine-Nine</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">The Witcher</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Lucifer</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1489599006989-8b4f4ce7b1b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Wednesday</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow right" onclick="scrollRight('trending-now')">&gt;</button>
+            </div>
+        </section>
+
+        <!-- Drama Series Section -->
+        <section class="show-section">
+            <h2 class="section-title">Drama Series</h2>
+            <div class="shows-container">
+                <button class="nav-arrow left" onclick="scrollLeft('drama-series')">&lt;</button>
+                <div class="shows-row" id="drama-series">
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">The Crown</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Ozark</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">This Is Us</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Virgin River</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1534809027769-b00d750a6bac?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Yellowstone</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Grey's Anatomy</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow right" onclick="scrollRight('drama-series')">&gt;</button>
+            </div>
+        </section>
+
+        <!-- Comedy Shows Section -->
+        <section class="show-section">
+            <h2 class="section-title">Comedy Shows</h2>
+            <div class="shows-container">
+                <button class="nav-arrow left" onclick="scrollLeft('comedy-shows')">&lt;</button>
+                <div class="shows-row" id="comedy-shows">
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">The Office</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Friends</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1534809027769-b00d750a6bac?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Schitt's Creek</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Never Have I Ever</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Space Force</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1489599006989-8b4f4ce7b1b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Arrested Development</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow right" onclick="scrollRight('comedy-shows')">&gt;</button>
+            </div>
+        </section>
+
+        <!-- Sci-Fi & Fantasy Section -->
+        <section class="show-section">
+            <h2 class="section-title">Sci-Fi & Fantasy</h2>
+            <div class="shows-container">
+                <button class="nav-arrow left" onclick="scrollLeft('scifi-fantasy')">&lt;</button>
+                <div class="shows-row" id="scifi-fantasy">
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">The Witcher</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1489599006989-8b4f4ce7b1b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Stranger Things</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Dark</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1534809027769-b00d750a6bac?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">The Umbrella Academy</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Black Mirror</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Lost in Space</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow right" onclick="scrollRight('scifi-fantasy')">&gt;</button>
+            </div>
+        </section>
+
+        <!-- Crime & Thriller Section -->
+        <section class="show-section">
+            <h2 class="section-title">Crime & Thriller</h2>
+            <div class="shows-container">
+                <button class="nav-arrow left" onclick="scrollLeft('crime-thriller')">&lt;</button>
+                <div class="shows-row" id="crime-thriller">
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1509347528160-9329d33b2588?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Money Heist</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Ozark</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Mindhunter</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Narcos</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Breaking Bad</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-item" style="background-image: url('https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        <div class="show-badge">N</div>
+                        <div class="show-overlay">
+                            <div class="show-info">
+                                <div class="show-title">Lupin</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow right" onclick="scrollRight('crime-thriller')">&gt;</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-cta">
+            <h2 class="footer-title">There's even more to watch.</h2>
+            <p class="footer-description">
+                Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning Netflix originals and more. Watch as much as you want, anytime you want.
+            </p>
+            <button class="footer-btn">Join now</button>
+        </div>
+
+        <div class="footer-info">
+            <p class="footer-text">Read about Netflix TV shows and movies and watch bonus videos on Tudum.com.</p>
+            <p class="footer-contact">Questions? Contact us.</p>
+        </div>
+
+        <div class="footer-links">
+            <div class="footer-column">
+                <a href="#" class="footer-link">FAQ</a>
+                <a href="#" class="footer-link">Investor Relations</a>
+                <a href="#" class="footer-link">Privacy</a>
+                <a href="#" class="footer-link">Speed Test</a>
+            </div>
+            <div class="footer-column">
+                <a href="#" class="footer-link">Help Centre</a>
+                <a href="#" class="footer-link">Jobs</a>
+                <a href="#" class="footer-link">Cookie Preferences</a>
+                <a href="#" class="footer-link">Legal Notices</a>
+            </div>
+            <div class="footer-column">
+                <a href="#" class="footer-link">Account</a>
+                <a href="#" class="footer-link">Ways to Watch</a>
+                <a href="#" class="footer-link">Corporate Information</a>
+                <a href="#" class="footer-link">Only on Netflix</a>
+            </div>
+            <div class="footer-column">
+                <a href="#" class="footer-link">Media Centre</a>
+                <a href="#" class="footer-link">Terms of Use</a>
+                <a href="#" class="footer-link">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // Scroll functionality for show rows
+        function scrollLeft(containerId) {
+            const container = document.getElementById(containerId);
+            const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
+            container.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollRight(containerId) {
+            const container = document.getElementById(containerId);
+            const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
+            container.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // Enhanced scroll functionality with touch support
+        function initializeScrolling() {
+            const containers = document.querySelectorAll('.shows-row');
+            
+            containers.forEach(container => {
+                let isScrolling = false;
+                let startX;
+                let scrollLeftStart;
+
+                // Mouse/Touch scroll events
+                container.addEventListener('mousedown', startDrag);
+                container.addEventListener('touchstart', startDrag);
+                
+                container.addEventListener('mousemove', onDrag);
+                container.addEventListener('touchmove', onDrag);
+                
+                container.addEventListener('mouseup', endDrag);
+                container.addEventListener('touchend', endDrag);
+                container.addEventListener('mouseleave', endDrag);
+
+                function startDrag(e) {
+                    isScrolling = true;
+                    startX = (e.type === 'mousedown') ? e.pageX : e.touches[0].pageX;
+                    scrollLeftStart = container.scrollLeft;
+                    container.style.cursor = 'grabbing';
+                }
+
+                function onDrag(e) {
+                    if (!isScrolling) return;
+                    e.preventDefault();
+                    const x = (e.type === 'mousemove') ? e.pageX : e.touches[0].pageX;
+                    const walk = (x - startX) * 2; // Scroll speed multiplier
+                    container.scrollLeft = scrollLeftStart - walk;
+                }
+
+                function endDrag() {
+                    isScrolling = false;
+                    container.style.cursor = 'grab';
+                }
+
+                // Keyboard navigation
+                container.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        scrollLeft(container.id);
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        scrollRight(container.id);
+                    }
+                });
+
+                // Make container focusable for keyboard navigation
+                container.setAttribute('tabindex', '0');
+            });
+        }
+
+        // Show/hide navigation arrows based on scroll position
+        function updateArrowVisibility() {
+            const containers = document.querySelectorAll('.shows-row');
+            containers.forEach(container => {
+                const leftArrow = container.parentElement.querySelector('.nav-arrow.left');
+                const rightArrow = container.parentElement.querySelector('.nav-arrow.right');
+                
+                // Show/hide left arrow
+                if (container.scrollLeft <= 0) {
+                    leftArrow.style.opacity = '0.5';
+                } else {
+                    leftArrow.style.opacity = '1';
+                }
+                
+                // Show/hide right arrow
+                if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+                    rightArrow.style.opacity = '0.5';
+                } else {
+                    rightArrow.style.opacity = '1';
+                }
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const containers = document.querySelectorAll('.shows-row');
+            containers.forEach(container => {
+                container.addEventListener('scroll', updateArrowVisibility);
+            });
+            
+            // Initialize scrolling functionality
+            initializeScrolling();
+            
+            // Initial arrow visibility update
+            updateArrowVisibility();
+            
+            // Handle window resize for responsiveness
+            handleResize();
+        });
+
+        // Show item click handler
+        document.querySelectorAll('.show-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const title = this.querySelector('.show-title').textContent;
+                alert(Playing: ${title});
+                // In a real application, this would open the show player
+            });
+        });
+
+        // Button click handlers
+        document.querySelector('.btn-join').addEventListener('click', function() {
+            alert('Redirecting to Netflix sign-up page...');
+        });
+
+        document.querySelector('.btn-signin').addEventListener('click', function() {
+            alert('Redirecting to Netflix sign-in page...');
+        });
+
+        // Footer button click handler
+        document.querySelector('.footer-btn').addEventListener('click', function() {
+            alert('Redirecting to Netflix sign-up page...');
+        });
+
+        // Footer links click handlers
+        document.querySelectorAll('.footer-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert(Navigating to: ${this.textContent});
+            });
+        });
+
+        // Responsive navigation for mobile
+        function handleResize() {
+            const navCenter = document.querySelector('.nav-center');
+            const navTagline = document.querySelector('.nav-tagline');
+            
+            if (window.innerWidth <= 768) {
+                if (navCenter) navCenter.style.display = 'none';
+                if (navTagline) navTagline.style.display = 'none';
+            } else {
+                if (navCenter) navCenter.style.display = 'flex';
+                if (navTagline) navTagline.style.display = 'block';
+            }
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('load', handleResize);
+    </script>
+</body>
+</html>
